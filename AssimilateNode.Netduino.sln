@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssimilateNode.Netduino", "AssimilateNode.Netduino\AssimilateNode.Netduino.csproj", "{11470DC6-3494-4FE9-B04A-86BE244E2F7B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssimilateNode.I2cBus", "AssimilateNode.I2cBus\AssimilateNode.I2cBus.csproj", "{0A13D86B-F31D-492B-BC1A-F7A3B2C4870C}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedClasses", "SharedClasses\SharedClasses.shproj", "{2402A571-96F0-44B7-A340-0FD903EE9591}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssimilateNode.Networking", "AssimilateNode.Networking\AssimilateNode.Networking.csproj", "{F44F4D65-9208-4ADF-987B-A7CD35B5673B}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		SharedClasses\SharedClasses.projitems*{0a13d86b-f31d-492b-bc1a-f7a3b2c4870c}*SharedItemsImports = 4
+		SharedClasses\SharedClasses.projitems*{2402a571-96f0-44b7-a340-0fd903ee9591}*SharedItemsImports = 13
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{11470DC6-3494-4FE9-B04A-86BE244E2F7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11470DC6-3494-4FE9-B04A-86BE244E2F7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11470DC6-3494-4FE9-B04A-86BE244E2F7B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{11470DC6-3494-4FE9-B04A-86BE244E2F7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11470DC6-3494-4FE9-B04A-86BE244E2F7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11470DC6-3494-4FE9-B04A-86BE244E2F7B}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{0A13D86B-F31D-492B-BC1A-F7A3B2C4870C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A13D86B-F31D-492B-BC1A-F7A3B2C4870C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A13D86B-F31D-492B-BC1A-F7A3B2C4870C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A13D86B-F31D-492B-BC1A-F7A3B2C4870C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F44F4D65-9208-4ADF-987B-A7CD35B5673B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F44F4D65-9208-4ADF-987B-A7CD35B5673B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F44F4D65-9208-4ADF-987B-A7CD35B5673B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F44F4D65-9208-4ADF-987B-A7CD35B5673B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
