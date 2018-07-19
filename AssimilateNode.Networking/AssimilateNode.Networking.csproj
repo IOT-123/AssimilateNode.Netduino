@@ -36,12 +36,29 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.SPOT.Graphics" />
+    <Reference Include="Microsoft.SPOT.Hardware" />
+    <Reference Include="Microsoft.SPOT.Hardware.PWM" />
+    <Reference Include="Microsoft.SPOT.Hardware.SerialPort" />
+    <Reference Include="Microsoft.SPOT.IO" />
     <Reference Include="Microsoft.SPOT.Native" />
     <Reference Include="Microsoft.SPOT.Net" />
+    <Reference Include="Microsoft.SPOT.TinyCore" />
+    <Reference Include="Netduino.Foundation, Version=0.17.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Netduino.Foundation.0.17.672\lib\netmf43\Netduino.Foundation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Netduino.Foundation.Network, Version=0.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Netduino.Foundation.Network.0.7.676\lib\netmf43\Netduino.Foundation.Network.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NetduinoExtensions, Version=4.3.2.1, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="SecretLabs.NETMF.Hardware.Netduino, Version=4.3.1.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Http" />
     <Reference Include="System.IO" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Condition="EXISTS('$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets')" Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
   <Import Condition="!EXISTS('$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets')" Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -15,7 +15,7 @@ namespace AssimilateNode.Netduino
             i2cComs.getMetadata();
             i2cComs.printMetadata();
             var networking = new NetworkFeatures();
-            networking.Verify();
+            networking.InitializeNetwork();
             networking.SetTime();
             // read config
 
