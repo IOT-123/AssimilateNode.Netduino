@@ -14,16 +14,16 @@ namespace AssimilateNode.Netduino
         {
             //            Debug.Print(Resources.GetString(Resources.StringResources.String1));
             // read config
-            //var deviceConfig = Config.getDeviceHashtable();
+            var deviceConfig = Config.getDeviceHashtable();
             var i2cComs = new I2cCommunication();
             i2cComs.printMetadata();
             i2cComs.getMetadata();
             i2cComs.printMetadata();
             var networking = new NetworkFeatures();
             networking.InitializeNetwork();
-            //var ntpServer = deviceConfig[DeviceJsonKeys.NTP_SERVER_NAME].ToString();
-            //var timeOffset = Convert.ToInt16(deviceConfig[DeviceJsonKeys.TIME_ZONE].ToString());
-            //networking.SetTime(ntpServer, timeOffset);
+            var ntpServer = deviceConfig[DeviceJsonKeys.NTP_SERVER_NAME].ToString();
+            var timeOffset = Convert.ToInt16(deviceConfig[DeviceJsonKeys.TIME_ZONE].ToString());
+            networking.SetTime(ntpServer, timeOffset);
 
 
             // set sensor timeout

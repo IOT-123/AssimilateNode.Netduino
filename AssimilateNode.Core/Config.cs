@@ -20,8 +20,7 @@ namespace AssimilateNode.Core
         public static ArrayList deserializeUserMetas(byte slaveAddress)
         {
             var pathRead = Config.FILE_CONFIG_USER_METAS.Replace("%i", slaveAddress.ToString());
-            SdFiles.ReadToArrayList(pathRead);
-            return new ArrayList();
+            return SdFiles.ReadToArrayList(pathRead);
         }
 
         public static Hashtable getDeviceHashtable()
