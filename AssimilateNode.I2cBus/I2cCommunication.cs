@@ -89,6 +89,75 @@ namespace AssimilateNode.I2cBus
             }// end foreach slave
         }
 
+        public void getProperties()
+        {
+
+
+            //char packet[16];
+            //char name[16];
+            //char value[16];
+            //bool i2cNodeProcessed;
+            //int intOfChar;
+            //_debug_assim.out_fla(F("[I2C REQUEST SENSOR VALUES]\tSLAVE_ADDR\tPROP_IDX\tSEGMENT_IDX"), true, 1);
+            //for (byte index = 0; index < _deviceCount; index++)
+            //{
+            //    byte prop_index = 0;
+            //    byte slave_address = _assimSlaves[index].address;
+            //    while (true)
+            //    {
+            //        i2cNodeProcessed = false;
+            //        for (byte segment = 0; segment < 3; segment++)
+            //        {
+            //            _debug_assim.out_fla(F("[I2C REQUEST SENSOR VALUES]\t\t"), false, 1);
+            //            _debug_assim.out_str(String(slave_address), false, 1);
+            //            _debug_assim.out_fla(F("\t\t"), false, 1);
+            //            _debug_assim.out_str(String(prop_index), false, 1);
+            //            _debug_assim.out_fla(F("\t\t"), false, 1);
+            //            _debug_assim.out_str(String(segment), true, 1);
+            //            Wire.setClockStretchLimit(_assimSlaves[index].clock_stretch);
+            //            Wire.requestFrom(slave_address, 16);
+            //            byte writeIndex = 0;
+            //            while (Wire.available())
+            //            { // slave may send less than requested
+            //                const char c = Wire.read();
+            //                intOfChar = int(c);
+            //                packet[writeIndex] = intOfChar > -1 && intOfChar < 255 ? c : 0x00;// replace invalid chars with zero char      
+            //                writeIndex++;
+            //            }// end while wire.available
+            //            switch (segment)
+            //            {
+            //                case 0:
+            //                    // set property name
+            //                    strcpy(name, packet);
+            //                    break;
+            //                case 1:
+            //                    // set property value            
+            //                    strcpy(value, packet);
+            //                    break;
+            //                case 2:
+            //                    // bubble up the name / value pairs
+            //                    nvCallback(slave_address, prop_index, _assimSlaves[index].role, name, value);
+            //                    prop_index++;
+            //                    // check if last metadata
+            //                    if (int(packet[0]) != 49)
+            //                    {// 0 on last property
+            //                        i2cNodeProcessed = true;
+            //                        break;
+            //                    }
+            //                default:;
+            //            }
+            //        }// end for segment
+            //        if (i2cNodeProcessed)
+            //        { // break out of true loop if last metadata
+            //            break;
+            //        }
+            //    }// end while true
+            //}// end for index	
+            //spCallback();
+
+
+        }
+
         private void setMetaOfInterest(Slave slave, Hashtable rootPairs, String i2cName, String value)
         {
             switch (i2cName)
