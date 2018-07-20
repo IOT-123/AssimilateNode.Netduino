@@ -20,8 +20,13 @@ namespace AssimilateNode.Networking
             Netduino.Foundation.Network.Initializer.InitializeNetwork("http://google.com");
         }
 
-        public bool SetTime()
+        public bool SetTime(string server, int timeZoneOffset)
         {
+
+            //try https://github.com/edwardsdl/netduino-ntp-client/
+            Debug.Print("SetTime");
+            Debug.Print(server);
+            Debug.Print(timeZoneOffset.ToString());
             var result = UpdateTimeFromNtpServer("us.pool.ntp.org", 10);
             Debug.Print(result ? "Networking.SetTime: Success" : "Networking.SetTime: Fail");
             return result;

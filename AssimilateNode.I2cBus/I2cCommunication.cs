@@ -2,14 +2,17 @@ using System;
 using Microsoft.SPOT;
 using Netduino.Foundation.Communications;
 using System.Collections;
-using SharedClasses;
+using AssimilateNode.Core;
 
 namespace AssimilateNode.I2cBus
 {
     public class I2cCommunication
     {
 
+
         private ArrayList _assimSlaves;
+        private const byte SLAVE_SCAN_LOW = 8;
+        private const byte SLAVE_SCAN_HIGH = 30;
 
         public I2cCommunication()
         {
@@ -20,7 +23,6 @@ namespace AssimilateNode.I2cBus
         public void getMetadata()
         {
             Debug.Print(MethodNames.GET_METADATA);
-            Config.clearSlaveMetadataFiles();
             bool i2cNodeProcessed;
             string name = "", value = "";
             ushort speed = 100;
@@ -80,19 +82,11 @@ namespace AssimilateNode.I2cBus
                 Debug.Print(LogMessages.CONFIRM_METADATA + slave.name);
                 i2C.WriteByte(I2cMessages.WRITE_CONFIRM_METADATA);
                 // SAVE /config/metadata/<i>.json
-                //_config.set_slave_meta_json(slave_address, address_json_obj);
-                Config.serializeSlaveMetas(slaveAddress, rootPairs);
-
-                //_debug_assim.out_fla(F("------------------------CONFIRMING METADATA FOR "), false, 1);
-                //_debug_assim.out_char(_assimSlaves[index].name, true, 1);
-                //delay(1);
-                //Wire.beginTransmission(slave_address);
-                //Wire.write(1);
-                //Wire.endTransmission();
-                //delay(100);
-                //// SAVE /config/metadata/<i>.json
-                //_config.set_slave_meta_json(slave_address, address_json_obj);
-            }// end for index 
+                if (!Config.serializeSlaveMetas(slaveAddress, rootPairs))
+                {
+                    Debug.Print(LogMessages.ERROR_SAVING_FILE + slaveAddress.ToString());
+                }
+            }// end foreach slave
         }
 
         private void setMetaOfInterest(Slave slave, Hashtable rootPairs, String i2cName, String value)
@@ -136,70 +130,70 @@ namespace AssimilateNode.I2cBus
             {
                 case I2cMessages.VIZ_CARD_TYPE:
                     value = valueParts[1];
-                    propertyIdxHashtable.AddOrUpdate(JsonKeys.CARD_TYPE, value);
+                    propertyIdxHashtable.AddOrUpdate(VizJsonKeys.CARD_TYPE, value);
                     setDefaultsForCardTtype(value, propertyIdxHashtable);
                     return;
                 case I2cMessages.VIZ_ICONS:
                     propKey = subValueParts[0];
                     value = subValueParts[1];
-                    if (!propertyIdxHashtable.Contains(JsonKeys.ICONS))
+                    if (!propertyIdxHashtable.Contains(VizJsonKeys.ICONS))
                     {
-                        propertyIdxHashtable.Add(JsonKeys.ICONS, new ArrayList());
+                        propertyIdxHashtable.Add(VizJsonKeys.ICONS, new ArrayList());
                     }
                     var leafHashtable = new Hashtable();
                     leafHashtable.Add(HashtableKeys.NAME, propKey);
                     leafHashtable.Add(HashtableKeys.VALUE, value);
-                    ((ArrayList)propertyIdxHashtable[JsonKeys.ICONS]).Add(leafHashtable);
+                    ((ArrayList)propertyIdxHashtable[VizJsonKeys.ICONS]).Add(leafHashtable);
                     return;
                 case I2cMessages.VIZ_LABELS:
                     propKey = subValueParts[0];
                     value = subValueParts[1];
-                    if (!propertyIdxHashtable.Contains(JsonKeys.LABELS))
+                    if (!propertyIdxHashtable.Contains(VizJsonKeys.LABELS))
                     {
-                        propertyIdxHashtable.Add(JsonKeys.LABELS, new ArrayList());
+                        propertyIdxHashtable.Add(VizJsonKeys.LABELS, new ArrayList());
                     }
                     var leafHashtable2 = new Hashtable();
                     leafHashtable2.Add(HashtableKeys.NAME, propKey);
                     leafHashtable2.Add(HashtableKeys.VALUE, value);
-                    ((ArrayList)propertyIdxHashtable[JsonKeys.LABELS]).Add(leafHashtable2);
+                    ((ArrayList)propertyIdxHashtable[VizJsonKeys.LABELS]).Add(leafHashtable2);
                     return;
                 case I2cMessages.VIZ_MIN:
                     value = valueParts[1];
-                    propertyIdxHashtable.AddOrUpdate(JsonKeys.MIN, Convert.ToInt32(value));
+                    propertyIdxHashtable.AddOrUpdate(VizJsonKeys.MIN, Convert.ToInt32(value));
                     return;
                 case I2cMessages.VIZ_MAX:
                     value = valueParts[1];
-                    propertyIdxHashtable.AddOrUpdate(JsonKeys.MAX, Convert.ToInt32(value));
+                    propertyIdxHashtable.AddOrUpdate(VizJsonKeys.MAX, Convert.ToInt32(value));
                     return;
                 case I2cMessages.VIZ_UNITS:
                     value = valueParts[1];
-                    propertyIdxHashtable.AddOrUpdate(JsonKeys.UNITS, value);
+                    propertyIdxHashtable.AddOrUpdate(VizJsonKeys.UNITS, value);
                     return;
                 case I2cMessages.VIZ_TOTAL:
                     value = valueParts[1];
-                    propertyIdxHashtable.AddOrUpdate(JsonKeys.TOTAL, Convert.ToInt32(value));
+                    propertyIdxHashtable.AddOrUpdate(VizJsonKeys.TOTAL, Convert.ToInt32(value));
                     return;
                 case I2cMessages.VIZ_VALUES:
                     propKey = subValueParts[0];
                     value = subValueParts[1];
-                    if (!propertyIdxHashtable.Contains(JsonKeys.VALUES))
+                    if (!propertyIdxHashtable.Contains(VizJsonKeys.VALUES))
                     {
-                        propertyIdxHashtable.AddOrUpdate(JsonKeys.VALUES, new ArrayList());
+                        propertyIdxHashtable.AddOrUpdate(VizJsonKeys.VALUES, new ArrayList());
                     }
-                    if (((ArrayList)propertyIdxHashtable[JsonKeys.VALUES]).Count == 2)
+                    if (((ArrayList)propertyIdxHashtable[VizJsonKeys.VALUES]).Count == 2)
                     {// remove the defaults - ToDo: more robust strategy
-                        ((ArrayList)propertyIdxHashtable[JsonKeys.VALUES]).RemoveAt(0);
-                        ((ArrayList)propertyIdxHashtable[JsonKeys.VALUES]).RemoveAt(0);
+                        ((ArrayList)propertyIdxHashtable[VizJsonKeys.VALUES]).RemoveAt(0);
+                        ((ArrayList)propertyIdxHashtable[VizJsonKeys.VALUES]).RemoveAt(0);
                     }
                     var leafHashtable3 = new Hashtable();
                     leafHashtable3.Add(HashtableKeys.NAME, propKey);
                     leafHashtable3.Add(HashtableKeys.VALUE, value);
-                    ((ArrayList)propertyIdxHashtable[JsonKeys.VALUES]).Add(leafHashtable3);
+                    ((ArrayList)propertyIdxHashtable[VizJsonKeys.VALUES]).Add(leafHashtable3);
                     return;
                 case I2cMessages.VIZ_IS_SERIES:
                     value = valueParts[1];
                     bool valueBool = value == JsonValues.IS_SEREIES_VALUE;
-                    propertyIdxHashtable.AddOrUpdate(JsonKeys.IS_SERIES, valueBool);
+                    propertyIdxHashtable.AddOrUpdate(VizJsonKeys.IS_SERIES, valueBool);
                     if (valueBool)
                     {
                         setDefaultsForCardTtype(I2cMessages.CARDTYPE_CHART_LINE, propertyIdxHashtable);
@@ -209,17 +203,17 @@ namespace AssimilateNode.I2cBus
                     return;
                 case I2cMessages.VIZ_HIGH:
                     value = valueParts[1];
-                    propertyIdxHashtable.AddOrUpdate(JsonKeys.HIGH, Convert.ToInt32(value));
+                    propertyIdxHashtable.AddOrUpdate(VizJsonKeys.HIGH, Convert.ToInt32(value));
                     return;
                 case I2cMessages.VIZ_LOW:
                     value = valueParts[1];
-                    propertyIdxHashtable.AddOrUpdate(JsonKeys.LOW, Convert.ToInt32(value));
+                    propertyIdxHashtable.AddOrUpdate(VizJsonKeys.LOW, Convert.ToInt32(value));
                     return;
                 case I2cMessages.VIZ_TOTL_UNIT:
                     value = subValueParts[0];
-                    propertyIdxHashtable.AddOrUpdate(JsonKeys.TOTAL, Convert.ToInt32(value));
+                    propertyIdxHashtable.AddOrUpdate(VizJsonKeys.TOTAL, Convert.ToInt32(value));
                     value = subValueParts[1];
-                    propertyIdxHashtable.AddOrUpdate(JsonKeys.UNITS, value);
+                    propertyIdxHashtable.AddOrUpdate(VizJsonKeys.UNITS, value);
                     return;
             }
         }
@@ -235,31 +229,31 @@ namespace AssimilateNode.I2cBus
                 case I2cMessages.CARDTYPE_BUTTON:
                     return;
                 case I2cMessages.CARDTYPE_TEXT:
-                    propertyIdxHashtable.AddOrUpdate(JsonKeys.UNITS, JsonValues.TEXT_STATUS);
+                    propertyIdxHashtable.AddOrUpdate(VizJsonKeys.UNITS, JsonValues.TEXT_STATUS);
                     return;
                 case I2cMessages.CARDTYPE_CHART_DONUT:
-                    propertyIdxHashtable.AddOrUpdate(JsonKeys.TOTAL, JsonValues.CHART_DONUT_TOTAL);
-                    propertyIdxHashtable.AddOrUpdate(JsonKeys.UNITS, JsonValues.CHART_DONUT_UNITS);
-                    propertyIdxHashtable.AddOrUpdate(JsonKeys.VALUES, new ArrayList());
+                    propertyIdxHashtable.AddOrUpdate(VizJsonKeys.TOTAL, JsonValues.CHART_DONUT_TOTAL);
+                    propertyIdxHashtable.AddOrUpdate(VizJsonKeys.UNITS, JsonValues.CHART_DONUT_UNITS);
+                    propertyIdxHashtable.AddOrUpdate(VizJsonKeys.VALUES, new ArrayList());
                     var leafHashtable1 = new Hashtable();
-                    leafHashtable1.AddOrUpdate(HashtableKeys.NAME, JsonKeys.LABELS);
+                    leafHashtable1.AddOrUpdate(HashtableKeys.NAME, VizJsonKeys.LABELS);
                     leafHashtable1.AddOrUpdate(HashtableKeys.VALUE, JsonValues.CHART_DONUT_VALUE_LABELS);
-                    ((ArrayList)propertyIdxHashtable[JsonKeys.VALUES]).Add(leafHashtable1);
+                    ((ArrayList)propertyIdxHashtable[VizJsonKeys.VALUES]).Add(leafHashtable1);
                     var leafHashtable2 = new Hashtable();
-                    leafHashtable2.AddOrUpdate(HashtableKeys.NAME, JsonKeys.SERIES);
+                    leafHashtable2.AddOrUpdate(HashtableKeys.NAME, VizJsonKeys.SERIES);
                     leafHashtable2.AddOrUpdate(HashtableKeys.VALUE, JsonValues.CHART_DONUT_VALUE_SERIES);
-                    ((ArrayList)propertyIdxHashtable[JsonKeys.VALUES]).Add(leafHashtable2);
+                    ((ArrayList)propertyIdxHashtable[VizJsonKeys.VALUES]).Add(leafHashtable2);
                     return;
                 case I2cMessages.CARDTYPE_CHART_LINE:
-                    propertyIdxHashtable.AddOrUpdate(JsonKeys.MAX, 12);
-                    propertyIdxHashtable.AddOrUpdate(JsonKeys.LOW, 0);
-                    propertyIdxHashtable.AddOrUpdate(JsonKeys.HIGH, 100);
+                    propertyIdxHashtable.AddOrUpdate(VizJsonKeys.MAX, 12);
+                    propertyIdxHashtable.AddOrUpdate(VizJsonKeys.LOW, 0);
+                    propertyIdxHashtable.AddOrUpdate(VizJsonKeys.HIGH, 100);
                     return;
             }
         }
 
         private void getUserMetaOrDefault(ArrayList userMetas, string i2cName, ref string value) {
-            if (i2cName.IndexOf(I2cMessages.VIZ_PREFIX) != 0) {
+            if (i2cName.IndexOf(I2cMessages.VIZ_PREFIX) != 0) { // VIZ_ metadata only
                 return;
             }
             var slaveValueParts = value.Split(':');
@@ -320,13 +314,13 @@ namespace AssimilateNode.I2cBus
             }
             ushort speed = 100;
             ushort timeout = 200;
-            for (byte i = 8; i < 30; i++)
+            for (byte i = SLAVE_SCAN_LOW; i < SLAVE_SCAN_HIGH; i++)
             {
                 I2CBus i2C = new I2CBus(i, speed, timeout);
                 try
                 {
                     i2C.WriteByte(0);
-                    Slave slaveAddressOnly = new Slave { address = i, clock_stretch = 40000, name = "not_assigned", role = Role.UNDEFINED};
+                    var slaveAddressOnly = new Slave { address = i, clock_stretch = 40000, name = "not_assigned", role = Role.UNDEFINED};
                     _assimSlaves.Add(slaveAddressOnly);
                 }
                 catch { }
@@ -343,10 +337,15 @@ namespace AssimilateNode.I2cBus
 
         private bool loadAddressWhitelist()
         {
-            _assimSlaves.Add(new Slave { address = 9, clock_stretch = 40000, name = "not_assigned", role = Role.UNDEFINED });
-            _assimSlaves.Add(new Slave { address = 10, clock_stretch = 40000, name = "not_assigned", role = Role.UNDEFINED });
-            _assimSlaves.Add(new Slave { address = 12, clock_stretch = 40000, name = "not_assigned", role = Role.UNDEFINED });
-            _assimSlaves.Add(new Slave { address = 16, clock_stretch = 40000, name = "not_assigned", role = Role.UNDEFINED });
+            var whitelist = Config.getWhitelistArrayList();
+            if (whitelist == null)
+            {
+                return false;
+            }
+            foreach (Hashtable item in whitelist)
+            {
+                _assimSlaves.Add(new Slave { address = Convert.ToByte(item[HashtableKeys.VALUE].ToString()), clock_stretch = 40000, name = "not_assigned", role = Role.UNDEFINED });
+            }
             return true;
         }
     }

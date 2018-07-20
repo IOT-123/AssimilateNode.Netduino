@@ -1,6 +1,9 @@
 using AssimilateNode.I2cBus;
 using AssimilateNode.Networking;
+using System.Collections;
 using System.Threading;
+using System;
+using AssimilateNode.Core;
 
 namespace AssimilateNode.Netduino
 {
@@ -10,14 +13,17 @@ namespace AssimilateNode.Netduino
     public static void Main()
         {
             //            Debug.Print(Resources.GetString(Resources.StringResources.String1));
+            // read config
+            //var deviceConfig = Config.getDeviceHashtable();
             var i2cComs = new I2cCommunication();
             i2cComs.printMetadata();
             i2cComs.getMetadata();
             i2cComs.printMetadata();
             var networking = new NetworkFeatures();
             networking.InitializeNetwork();
-            networking.SetTime();
-            // read config
+            //var ntpServer = deviceConfig[DeviceJsonKeys.NTP_SERVER_NAME].ToString();
+            //var timeOffset = Convert.ToInt16(deviceConfig[DeviceJsonKeys.TIME_ZONE].ToString());
+            //networking.SetTime(ntpServer, timeOffset);
 
 
             // set sensor timeout
@@ -29,7 +35,7 @@ namespace AssimilateNode.Netduino
             Thread.Sleep(Timeout.Infinite);
         }
 
- 
+
     }
 
 

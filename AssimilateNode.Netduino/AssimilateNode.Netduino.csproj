@@ -77,6 +77,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AssimilateNode.Core\AssimilateNode.Core.csproj">
+      <Project>{EA1C6CCA-78D5-40EE-A854-F8A240B4077F}</Project>
+      <Name>AssimilateNode.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AssimilateNode.I2cBus\AssimilateNode.I2cBus.csproj">
       <Project>{0A13D86B-F31D-492B-BC1A-F7A3B2C4870C}</Project>
       <Name>AssimilateNode.I2cBus</Name>

@@ -1,8 +1,9 @@
-﻿using System;
+using System;
+using Microsoft.SPOT;
 using System.Collections;
 using System.Text;
 
-namespace SharedClasses
+namespace AssimilateNode.Core
 {
     public static class Extensions
     {
@@ -20,13 +21,14 @@ namespace SharedClasses
             }
         }
 
-        public static string Replace(this String str, string unwanted, string replacement) {
+        public static string Replace(this String str, string unwanted, string replacement)
+        {
             StringBuilder sb = new StringBuilder(str);
             sb.Replace(unwanted, replacement);
             return sb.ToString();
         }
 
+
+
     }
-
-
 }

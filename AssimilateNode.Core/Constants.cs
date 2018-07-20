@@ -1,6 +1,5 @@
-﻿
 
-namespace SharedClasses
+namespace AssimilateNode.Core
 {
 
     public static class MethodNames
@@ -19,6 +18,7 @@ namespace SharedClasses
         public const string CONFIRM_METADATA = "------------------------CONFIRMING METADATA FOR ";
         public const string DEVICE_COUNT = "DEVICE COUNT: ";
         public const string LOADED_WHITELIST = "Addresses loaded from whitelist";
+        public const string ERROR_SAVING_FILE = "Error saving file: ";
     }
 
     public static class I2cMessages
@@ -58,8 +58,7 @@ namespace SharedClasses
         public const string ACTOR = "ACTOR";
     }
 
-
-    public static class JsonKeys
+    public static class VizJsonKeys
     {
         public const string CARD_TYPE = "card_type";
         public const string ICONS = "icons";
@@ -74,7 +73,25 @@ namespace SharedClasses
         public const string LOW = "low";
         public const string HIGH = "high";
         public const string IS_SERIES = "is_series";
-        
+    }
+
+    public static class DeviceJsonKeys
+    {
+        public const string WWW_AUT_USERNAME = "www_auth_username";
+        public const string WWW_AUTH_PASSWORD = "www_auth_password";
+        public const string www_auth_exclude_files = "www_auth_exclude_files";
+        public const string SENSOR_INTERVAL = "sensor_interval";
+        public const string NTP_SERVER_NAME = "ntp_server_name";
+        public const string TIME_ZONE = "time_zone";
+        public const string WIFI_SSID = "wifi_ssid";
+        public const string WIFI_KEY = "wifi_key";
+        public const string MQTT_BROKER = "mqtt_broker";
+        public const string MQTT_USERNAME = "mqtt_username";
+        public const string MQTT_PASSWORD = "mqtt_password";
+        public const string MQTT_PORT = "mqtt_port";
+        public const string MQTT_DEVICE_NAME = "mqtt_device_name";
+        public const string MQTT_DEVICE_DESCRIPTION = "mqtt_device_description";
+        public const string VIZ_COLOR = "mqtt_device_description";
     }
 
     public static class JsonValues
