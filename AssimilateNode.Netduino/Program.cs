@@ -3,6 +3,7 @@ using AssimilateNode.Networking;
 using System.Threading;
 using System;
 using AssimilateNode.Core;
+using Netduino.Foundation.Network;
 
 namespace AssimilateNode.Netduino
 {
@@ -18,14 +19,14 @@ namespace AssimilateNode.Netduino
             i2cComs.printMetadata();
             var networking = new NetworkFeatures();
             networking.InitializeNetwork();
-            var ntpServer = deviceConfig[DeviceJsonKeys.NTP_SERVER_NAME].ToString();
-            var timeOffset = Convert.ToInt16(deviceConfig[DeviceJsonKeys.TIME_ZONE].ToString());
-            networking.SetTime(ntpServer, timeOffset);
-
-
-            // THREAD? MQTT init
-            // THREAD Server init
-
+            Initializer.NetworkConnected += (s, e) =>
+            {
+                var ntpServer = deviceConfig[DeviceJsonKeys.NTP_SERVER_NAME].ToString();
+                var timeOffset = Convert.ToInt16(deviceConfig[DeviceJsonKeys.TIME_ZONE].ToString());
+                networking.SetTime(ntpServer, timeOffset);
+                // THREAD? MQTT init
+                // THREAD Server init
+            };
             var readingInterval = Convert.ToInt16(deviceConfig[DeviceJsonKeys.SENSOR_INTERVAL].ToString());
             new Timer(I2cLoop, i2cComs, 0, readingInterval);
             Thread.Sleep(Timeout.Infinite);

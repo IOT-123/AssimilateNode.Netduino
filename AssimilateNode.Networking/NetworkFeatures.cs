@@ -1,10 +1,9 @@
-using System.Threading;
 using System.Net;
 using Microsoft.SPOT;
 using Microsoft.SPOT.Net.NetworkInformation;
 using System;
 using System.Net.Sockets;
-using Netduino.Foundation;
+using Netduino.Foundation.Network;
 
 namespace AssimilateNode.Networking
 {
@@ -17,7 +16,8 @@ namespace AssimilateNode.Networking
 
         public void InitializeNetwork()
         {
-            Netduino.Foundation.Network.Initializer.InitializeNetwork("http://google.com");
+            
+            Initializer.InitializeNetwork("http://google.com");
         }
 
         public bool SetTime(string server, int timeZoneOffset)
