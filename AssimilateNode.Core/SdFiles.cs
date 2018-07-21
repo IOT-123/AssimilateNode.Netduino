@@ -17,6 +17,13 @@ namespace AssimilateNode.Core
         private const string SD_ROOT = "\\SD";
         private const string SD_VOLUME = "SD";
 
+        /// <summary>
+        /// Read a string from SD card
+        /// </summary>
+        /// <returns>
+        /// The string or null
+        /// </returns>
+        /// <param name="filepath">The path on the SD card</param>      
         public static string ReadString(string filepath)
         {
             var fullath = Path.Combine(SD_ROOT, filepath);
@@ -37,6 +44,14 @@ namespace AssimilateNode.Core
             }
         }
 
+        /// <summary>
+        /// Write a string to the  SD card
+        /// </summary>
+        /// <returns>
+        /// True if success
+        /// </returns>
+        /// <param name="filepath">The path on the SD card</param> 
+        /// <param name="content">The content to write</param> 
         public static bool WriteString(string filepath, string content)
         {
             var fullath = Path.Combine(SD_ROOT, filepath);
@@ -59,6 +74,13 @@ namespace AssimilateNode.Core
             }
         }
 
+        /// <summary>
+        /// Read JSON and box as Hashtable
+        /// </summary>
+        /// <returns>
+        /// The Hashtable
+        /// </returns>
+        /// <param name="filepath">The path on the SD card</param> 
         public static Hashtable ReadToHashtable(string filepath)
         {
             var json = ReadString(filepath);
@@ -69,6 +91,13 @@ namespace AssimilateNode.Core
             return JsonSerializer.DeserializeString(json) as Hashtable;
         }
 
+        /// <summary>
+        /// Read JSON and box as ArrayList
+        /// </summary>
+        /// <returns>
+        /// The ArrayList
+        /// </returns>
+        /// <param name="filepath">The path on the SD card</param> 
         public static ArrayList ReadToArrayList(string filepath)
         {
             var json = ReadString(filepath);
