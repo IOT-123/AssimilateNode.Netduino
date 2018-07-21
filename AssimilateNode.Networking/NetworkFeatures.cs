@@ -7,12 +7,14 @@ using Netduino.Foundation.Network;
 
 namespace AssimilateNode.Networking
 {
+
+    /// <summary>
+    /// Entry point for main networking features
+    /// </summary>
     public class NetworkFeatures
     {
 
         NetworkInterface[] _interfaces;
-
-        public bool IsRunning { get; set; }
 
         public void InitializeNetwork()
         {

@@ -3,6 +3,10 @@ using Json.NETMF;
 
 namespace AssimilateNode.Core
 {
+
+    /// <summary>
+    /// Methods and constants for config files
+    /// </summary>
     public static class Config
     {
         private const string FILE_CONFIG_DEVICE = "config\\device.json";

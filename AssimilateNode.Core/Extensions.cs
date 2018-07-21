@@ -5,6 +5,10 @@ using System.Text;
 
 namespace AssimilateNode.Core
 {
+
+    /// <summary>
+    /// Methods not supplied
+    /// </summary>
     public static class Extensions
     {
 

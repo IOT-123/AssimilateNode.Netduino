@@ -1,5 +1,8 @@
 namespace AssimilateNode.I2cBus
 {
+    /// <summary>
+    /// Identifies the rolew of the I2C slave
+    /// </summary>
     public enum Role
     {
         UNDEFINED = -1,
@@ -10,6 +13,9 @@ namespace AssimilateNode.I2cBus
 
 namespace System.Diagnostics
 {
+    /// <summary>
+    /// Needed by the compiler on netduino
+    /// </summary>
     public enum DebuggerBrowsableState
     {
         Never = 0,

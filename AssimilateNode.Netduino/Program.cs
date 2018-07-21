@@ -14,11 +14,20 @@ namespace AssimilateNode.Netduino
         {
             var deviceConfig = Config.getDeviceHashtable();
             var i2cComs = new I2cCommunication();
+            var networking = new NetworkFeatures();
+            // i2c
             i2cComs.printMetadata();
             i2cComs.getMetadata();
             i2cComs.printMetadata();
-            var networking = new NetworkFeatures();
-            networking.InitializeNetwork();
+            I2cCommunication.PropertyReceived += (s, e) =>
+            {
+
+            };
+            I2cCommunication.SlaveCyleComplete += (s, e) =>
+            {
+
+            };
+            // network
             Initializer.NetworkConnected += (s, e) =>
             {
                 var ntpServer = deviceConfig[DeviceJsonKeys.NTP_SERVER_NAME].ToString();
@@ -27,7 +36,9 @@ namespace AssimilateNode.Netduino
                 // THREAD? MQTT init
                 // THREAD Server init
             };
+            networking.InitializeNetwork();
             var readingInterval = Convert.ToInt16(deviceConfig[DeviceJsonKeys.SENSOR_INTERVAL].ToString());
+            // i2c property loop
             new Timer(I2cLoop, i2cComs, 0, readingInterval);
             Thread.Sleep(Timeout.Infinite);
         }

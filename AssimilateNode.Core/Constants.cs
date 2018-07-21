@@ -2,6 +2,9 @@
 namespace AssimilateNode.Core
 {
 
+    /// <summary>
+    /// Names of methods logged
+    /// </summary>
     public static class MethodNames
     {
         public const string GET_METADATA = "getMetadata";
@@ -9,6 +12,9 @@ namespace AssimilateNode.Core
         public const string SCAN_BUS_ADDRESSES = "scanBusAddresses";
     }
 
+    /// <summary>
+    /// Strings used in Log Messages
+    /// </summary>
     public static class LogMessages
     {
         public const string OUT_OF_SYNC = "OUT OF SYNC";
@@ -21,6 +27,9 @@ namespace AssimilateNode.Core
         public const string ERROR_SAVING_FILE = "Error saving file: ";
     }
 
+    /// <summary>
+    /// Standard messages sent over I2C
+    /// </summary>
     public static class I2cMessages
     {
         public static string SEG3_DISCONTINUE => "0";
@@ -58,6 +67,9 @@ namespace AssimilateNode.Core
         public const string ACTOR = "ACTOR";
     }
 
+    /// <summary>
+    /// JSON keys for Crouton
+    /// </summary>
     public static class VizJsonKeys
     {
         public const string CARD_TYPE = "card_type";
@@ -75,6 +87,25 @@ namespace AssimilateNode.Core
         public const string IS_SERIES = "is_series";
     }
 
+    /// <summary>
+    /// JSON values for Crouton
+    /// </summary>
+    public static class JsonValues
+    {
+        public const string TEXT_STATUS = "STATUS";
+        public const int CHART_DONUT_TOTAL = 100;
+        public const string CHART_DONUT_UNITS = "%";
+        public const string CHART_DONUT_VALUE_LABELS = "[]";
+        public const string CHART_DONUT_VALUE_SERIES = "0";
+        public const int CHART_LINE_MAX = 12;
+        public const int CHART_LINE_LOW = 0;
+        public const int CHART_LINE_HIGH = 100;
+        public const string IS_SEREIES_VALUE = "true";
+    }
+
+    /// <summary>
+    /// JSON keys for \SD\config\device.json
+    /// </summary>
     public static class DeviceJsonKeys
     {
         public const string WWW_AUT_USERNAME = "www_auth_username";
@@ -94,19 +125,10 @@ namespace AssimilateNode.Core
         public const string VIZ_COLOR = "mqtt_device_description";
     }
 
-    public static class JsonValues
-    {
-        public const string TEXT_STATUS = "STATUS";
-        public const int CHART_DONUT_TOTAL = 100;
-        public const string CHART_DONUT_UNITS = "%";
-        public const string CHART_DONUT_VALUE_LABELS = "[]";
-        public const string CHART_DONUT_VALUE_SERIES = "0";
-        public const int CHART_LINE_MAX = 12;
-        public const int CHART_LINE_LOW = 0;
-        public const int CHART_LINE_HIGH = 100;
-        public const string IS_SEREIES_VALUE = "true";
-    }
 
+    /// <summary>
+    /// Hashtable keys mains from SD JSON
+    /// </summary>
     public static class HashtableKeys
     {
         public const string NAME = "name";

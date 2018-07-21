@@ -8,6 +8,9 @@ using System;
 
 namespace AssimilateNode.Core
 {
+    /// <summary>
+    /// Reads, writes, boxes SD file contents
+    /// </summary>
     public static class SdFiles
     {
 
