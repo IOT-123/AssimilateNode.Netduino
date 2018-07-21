@@ -12,10 +12,25 @@ namespace AssimilateNode.I2cBus
     /// </summary>
     public class PropertyReceivedventArgs : EventArgs
     {
+        /// <summary>
+        /// Slave I2C address
+        /// </summary>
         public byte slaveAddress { get; set; }
+        /// <summary>
+        /// Index of property sent as defined on each slave
+        /// </summary>
         public byte propertyIndex { get; set; }
+        /// <summary>
+        /// Slave role: ACTOR/SENSOR
+        /// </summary>
         public Role role { get; set; }
+        /// <summary>
+        /// Name of property received
+        /// </summary>
         public string name { get; set; }
+        /// <summary>
+        /// Value of property received
+        /// </summary>
         public string value { get; set; }
     }
 
@@ -25,10 +40,22 @@ namespace AssimilateNode.I2cBus
     public class I2cCommunication
     {
 
+        /// <summary>
+        /// Event when a single name/value property is received
+        /// </summary>
         public static event PropertyReceivedDelegate PropertyReceived;
+        /// <summary>
+        /// Delegate for PropertyReceived event
+        /// </summary>
         public delegate void PropertyReceivedDelegate(object sender, PropertyReceivedventArgs e);
 
+        /// <summary>
+        /// Event when a complete cycle of slaves completing a dump of properties
+        /// </summary>
         public static event SlaveCyleCompleteDelegate SlaveCyleComplete;
+        /// <summary>
+        /// Delegate for SlaveCyleComplete event
+        /// </summary>
         public delegate void SlaveCyleCompleteDelegate(object sender, EventArgs e);
 
         private ArrayList _assimSlaves;
@@ -37,12 +64,18 @@ namespace AssimilateNode.I2cBus
 
 
 
+        /// <summary>
+        /// Constructor for class
+        /// </summary>
         public I2cCommunication()
         {
             _assimSlaves = new ArrayList();
             scanBusAddresses();
         }
 
+        /// <summary>
+        /// Get metadata from slaves, store in _assimSlaves and JSON files
+        /// </summary>
         public void getMetadata()
         {
             Debug.Print(MethodNames.GET_METADATA);
@@ -120,6 +153,9 @@ namespace AssimilateNode.I2cBus
             return packet;
         }
 
+        /// <summary>
+        /// Get properties from slaves, raise events for individual properties and completion
+        /// </summary>
         public void getProperties()
         {
             bool i2cNodeProcessed;
@@ -377,6 +413,9 @@ namespace AssimilateNode.I2cBus
             }
         }
 
+        /// <summary>
+        /// Print the _assimSlaves details to Debug output
+        /// </summary>
         public void printMetadata()
         {
             Debug.Print(MethodNames.PRINT_METADATA);

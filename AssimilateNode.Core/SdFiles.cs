@@ -1,10 +1,8 @@
 using Json.NETMF;
-using Microsoft.SPOT;
 using Microsoft.SPOT.IO;
 using System.Collections;
 using System.IO;
 using System.Text;
-using System;
 
 namespace AssimilateNode.Core
 {

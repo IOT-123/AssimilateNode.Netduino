@@ -5,8 +5,17 @@ namespace AssimilateNode.I2cBus
     /// </summary>
     public enum Role
     {
+        /// <summary>
+        /// Not set
+        /// </summary>
         UNDEFINED = -1,
+        /// <summary>
+        /// Is a sensor
+        /// </summary>
         SENSOR = 0,
+        /// <summary>
+        /// Is an actor
+        /// </summary>
         ACTOR = 1,
     };
 }
@@ -18,8 +27,17 @@ namespace System.Diagnostics
     /// </summary>
     public enum DebuggerBrowsableState
     {
+        /// <summary>
+        /// Never
+        /// </summary>
         Never = 0,
+        /// <summary>
+        /// Collapsed
+        /// </summary>
         Collapsed = 2,
+        /// <summary>
+        /// RootHidden
+        /// </summary>
         RootHidden = 3
     }
 }
