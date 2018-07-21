@@ -14,14 +14,21 @@ namespace AssimilateNode.Networking
     public class NetworkFeatures
     {
 
-        NetworkInterface[] _interfaces;
-
+        /// <summary>
+        /// Verify Network connection
+        /// </summary>
         public void InitializeNetwork()
         {
             
             Initializer.InitializeNetwork("http://google.com");
         }
 
+        /// <summary>
+        /// Set time from NTP Server with Debug messages
+        /// </summary>
+        /// <param name="server">NTP Server</param>
+        /// <param name="timeZoneOffset">Offset in hours</param>
+        /// <returns></returns>
         public bool SetTime(string server, int timeZoneOffset)
         {
 
@@ -29,11 +36,17 @@ namespace AssimilateNode.Networking
             Debug.Print("SetTime");
             Debug.Print(server);
             Debug.Print(timeZoneOffset.ToString());
-            var result = UpdateTimeFromNtpServer("us.pool.ntp.org", 10);
+            var result = UpdateTimeFromNtpServer(server, timeZoneOffset);
             Debug.Print(result ? "Networking.SetTime: Success" : "Networking.SetTime: Fail");
             return result;
         }
 
+        /// <summary>
+        /// Set time from NTP Server
+        /// </summary>
+        /// <param name="server">NTP Server</param>
+        /// <param name="timeZoneOffset">Offset in hours</param>
+        /// <returns></returns>
         public bool UpdateTimeFromNtpServer(string server, int timeZoneOffset)
         {
             try
@@ -42,9 +55,8 @@ namespace AssimilateNode.Networking
                 Microsoft.SPOT.Hardware.Utility.SetLocalTime(currentTime);
                 return true;
             }
-            catch (Exception ex)
+            catch
             {
-                //Debug.Print(ex.InnerException.Message);
                 return false;
             }
         }

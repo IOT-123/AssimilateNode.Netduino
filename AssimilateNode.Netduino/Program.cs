@@ -7,10 +7,16 @@ using Netduino.Foundation.Network;
 
 namespace AssimilateNode.Netduino
 {
+    /// <summary>
+    /// Entry point on Netduino
+    /// </summary>
     public class Program
     {
 
-    public static void Main()
+        /// <summary>
+        /// Entry point on Netduino
+        /// </summary>
+        public static void Main()
         {
             var deviceConfig = Config.getDeviceHashtable();
             var i2cComs = new I2cCommunication();
