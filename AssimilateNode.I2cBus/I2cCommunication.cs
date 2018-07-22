@@ -206,9 +206,9 @@ namespace AssimilateNode.I2cBus
                             }
 
                         }
-                        catch
+                        catch (Exception ex)
                         {
-
+                            Debug.Print(ex.Message);
                         }
                     }
                     if (i2cNodeProcessed)
