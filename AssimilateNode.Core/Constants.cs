@@ -8,18 +8,22 @@ namespace AssimilateNode.Core
     public static class MethodNames
     {
         /// <summary>
-        /// "getMetadata"
+        /// "AssimilateNode.I2cBus.I2cCommunication..getMetadata"
         /// </summary>
-        public const string GET_METADATA = "getMetadata";
+        public const string GET_METADATA = "AssimilateNode.I2cBus.I2cCommunication.getMetadata";
         /// <summary>
-        /// "printMetadata"
+        /// "AssimilateNode.I2cBus.I2cCommunication.getProperties"
         /// </summary>
-        public const string PRINT_METADATA = "printMetadata";
+        public const string GET_PROPERTIES = "AssimilateNode.I2cBus.I2cCommunication.getProperties";
         /// <summary>
-        /// "scanBusAddresses"
+        /// "AssimilateNode.I2cBus.I2cCommunication.printMetadata"
         /// </summary>
-        public const string SCAN_BUS_ADDRESSES = "scanBusAddresses";
-    }
+        public const string PRINT_METADATA = "AssimilateNode.I2cBus.I2cCommunication.printMetadata";
+        /// <summary>
+        /// "AssimilateNode.I2cBus.I2cCommunication.scanBusAddresses"
+        /// </summary>
+        public const string SCAN_BUS_ADDRESSES = "AssimilateNode.I2cBus.I2cCommunication.scanBusAddresses";
+     }
 
     /// <summary>
     /// Strings used in Log Messages

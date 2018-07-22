@@ -137,7 +137,7 @@ namespace AssimilateNode.Networking
                     Debug.Print("DHCP is enabled, attempting to get an IP Address");
 
                     // ask for an IP address from DHCP [note this is a static, not sure which network interface it would act on]
-                    int sleepInterval = 10;
+                    int sleepInterval = 500;
                     int maxIntervalCount = timeout / sleepInterval;
                     int count = 0;
 

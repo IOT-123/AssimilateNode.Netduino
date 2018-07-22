@@ -81,13 +81,13 @@ namespace AssimilateNode.I2cBus
             Debug.Print(MethodNames.GET_METADATA);
             bool i2cNodeProcessed;
             string name = "", value = "";
-            ushort speed = 1000;
+            ushort speed = 200; // 1000 breaks ReadBytes
             ushort timeout = 200;
             foreach (Slave slave in _assimSlaves)
             {
                 byte slaveAddress = slave.address;
                 Hashtable rootPairs = new Hashtable();
-                ArrayList userMetas = Config.deserializeUserMetas(slaveAddress); 
+                ArrayList userMetas = Config.deserializeUserMetas(slaveAddress);
                 I2CBus i2C = new I2CBus(slaveAddress, speed, timeout);
                 while (true) {
                     i2cNodeProcessed = false;
@@ -158,8 +158,9 @@ namespace AssimilateNode.I2cBus
         /// </summary>
         public void getProperties()
         {
+            Debug.Print(MethodNames.GET_PROPERTIES);
             bool i2cNodeProcessed;
-            ushort speed = 1000;
+            ushort speed = 200; // 1000 breaks ReadBytes
             ushort timeout = 200;
             string name = "", value = "";
             foreach (Slave slave in _assimSlaves)
